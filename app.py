@@ -16,9 +16,6 @@ def extract():
     if not file:
         return jsonify({"error": "No file provided"}), 400
 
-    if not file.filename.endswith(".pdf"):
-        return jsonify({"error": "File must be a PDF"}), 400
-
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
         file.save(tmp.name)
         try:
