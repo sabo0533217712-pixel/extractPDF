@@ -12,10 +12,10 @@ def health():
 
 @app.route("/extract", methods=["POST"])
 def extract():
-    if "file" not in request.files:
+    file = request.files.get("file") or next(iter(request.files.values()), None)
+    if not file:
         return jsonify({"error": "No file provided"}), 400
 
-    file = request.files["file"]
     if not file.filename.endswith(".pdf"):
         return jsonify({"error": "File must be a PDF"}), 400
 
